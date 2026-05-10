@@ -1,0 +1,64 @@
+{
+  "entities": {
+    "product": {
+      "title": "Product",
+      "description": "A tea menu item",
+      "type": "object",
+      "properties": {
+        "category": { "type": "string" },
+        "name": { "type": "string" },
+        "englishName": { "type": "string" },
+        "priceL": { "type": "number" },
+        "priceBottle": { "type": "number" },
+        "isHotOption": { "type": "boolean" },
+        "isRecommended": { "type": "boolean" },
+        "isNew": { "type": "boolean" },
+        "hasFixSugar": { "type": "boolean" },
+        "isActive": { "type": "boolean" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["category", "name", "priceL", "isActive", "createdAt", "updatedAt"]
+    },
+    "order": {
+      "title": "Order",
+      "description": "A customer order",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "customerName": { "type": "string" },
+        "customerPhone": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "processing", "completed", "cancelled"] },
+        "totalPrice": { "type": "number" },
+        "items": { "type": "array" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["userId", "status", "totalPrice", "items", "createdAt", "updatedAt"]
+    },
+    "admin": {
+      "title": "Admin",
+      "description": "Admin user",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["email", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/products/{productId}": {
+      "schema": { "$ref": "#/entities/product" },
+      "description": "Menu items"
+    },
+    "/orders/{orderId}": {
+      "schema": { "$ref": "#/entities/order" },
+      "description": "Customer orders"
+    },
+    "/admins/{adminId}": {
+      "schema": { "$ref": "#/entities/admin" },
+      "description": "Admin users allowed to manage orders and products"
+    }
+  }
+}
